@@ -10,3 +10,21 @@
     background-color: #cbd5e1;
     border-radius: 20px;
 }
+
+/* Add this to your global styles.css or component css */
+.cdk-drag-preview {
+  transition: none !important; /* Forces instant movement with mouse */
+  box-sizing: border-box;
+  border-radius: 0.75rem; /* Match your rounded-xl */
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* shadow-xl */
+}
+
+/* Animate items moving out of the way */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item dropping into its final spot */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
