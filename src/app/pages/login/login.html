@@ -1,0 +1,52 @@
+<div class="min-h-screen flex items-center justify-center bg-slate-100 p-4">
+    <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md border border-slate-200">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Welcome Back</h1>
+            <p class="text-slate-500 mt-2">Sign in to manage your tasks</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+            <!-- Username -->
+            <div class="relative">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1 block">Username</label>
+                <input type="text" formControlName="username"
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50"
+                    placeholder="e.g., emilys" />
+                <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid"
+                    class="text-red-500 text-xs mt-1">
+                    Username is required
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="relative">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1 block">Password</label>
+                <input type="password" formControlName="password"
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50"
+                    placeholder="e.g., emilyspass" />
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="authService.error()"
+                class="bg-red-50 text-red-600 p-3 rounded-lg text-sm border border-red-100 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd" />
+                </svg>
+                {{ authService.error() }}
+            </div>
+
+            <button type="submit" [disabled]="loginForm.invalid || authService.isLoading()"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-lg shadow-indigo-500/30 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center">
+                <span *ngIf="authService.isLoading()"
+                    class="mr-2 animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+                {{ authService.isLoading() ? 'Signing In...' : 'Sign In' }}
+            </button>
+        </form>
+
+        <div class="mt-6 text-center text-xs text-slate-400">
+            Using dummyjson.com authentication
+        </div>
+    </div>
+</div>
